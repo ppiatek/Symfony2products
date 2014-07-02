@@ -1,0 +1,5 @@
+
+_report:
+    resource: "@PpiatekOrderBundle/Controller/ReportController.php"
+    type:     annotation
+    prefix:   /report

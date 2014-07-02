@@ -1,0 +1,19 @@
+{% extends "PpiatekOrderBundle::layout.html.twig" %}
+
+{% block title "Raport" %}
+
+{% block table %}
+    {% verbatim %}
+    <table>
+      <tr ng-repeat="clients in client">
+        <th>Imie</th>
+        <th>Nazwisko</th>
+      </tr>
+      <tr ng-repeat="clients in client">
+        <td>{{client.firstname}}</td>
+        <td>{{client.lastname}}</td>
+      </tr>
+    </table>
+    {% endverbatim %}
+    
+{% endblock %}

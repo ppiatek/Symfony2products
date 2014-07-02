@@ -1,0 +1,26 @@
+{% extends "TwigBundle::layout.html.twig" %}
+
+{% block head %}
+    <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
+    
+    
+    <link rel="stylesheet" href="{{ asset('bundles/ppiatek/css/raport.css') }}" />
+    <script type="text/javascript" src="{{ asset('bundles/ppiatek/js/angular.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ppiatek/js/angular/controllers.js') }}"></script>
+{% endblock %}
+
+{% block title 'Report Bundle' %}
+
+{% block body %}
+  <div  ng-controller="ClientsListCtrl">
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-message">
+            <em>Notice</em>: {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <div class="block">
+        {% block table %} {% endblock %}
+    </div>
+  </div>    
+{% endblock %}
