@@ -1,4 +1,4 @@
-Symfony2 - my Symfony learning and others 
+My Symfony learning and others 
 ========================
 
 Base on Symfony Standard Edition and others
