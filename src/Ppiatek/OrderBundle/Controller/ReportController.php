@@ -17,12 +17,34 @@ use Ppiatek\OrderBundle\Entity\Produkt;
 class ReportController extends Controller
 {
     /**
-     * @Route("/{page}", name="_report")
-     * @Template()
+     * @Route("/{page}/{sort}/{direction}/{messages}", name="_report")
+     * @Template()                          
      */
-    public function indexAction(Request $request, $page = 1)
+    public function indexAction(Request $request, $page = 1, $sort = 'id_klient', $direction = 'asc', $messages = 'Nazwisko')
     {
+        // http://localhost:8000/app_dev.php/report?sort=k.imie&direction=asc
+        $em = $this->getDoctrine()->getEntityManager();
+        $qb = $em->createQueryBuilder();
         
+        $qb->select('k')
+           ->from('PpiatekOrderBundle:Klient', 'k')
+           ->orderBy('k.'.$sort, $direction);
+        $query = $qb->getQuery();
+        
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $page /*page number*/,
+            10/*limit per page*/
+        );
+        
+        return array(
+            'pagination' => $pagination,
+            'name' => "Przemek",
+            'count' => 4
+        );
+        
+        /*
         //$repository = $this->getDoctrine()->getRepository('PpiatekOrderBundle:Klient');
         $em = $this->getDoctrine()->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -53,6 +75,7 @@ class ReportController extends Controller
             'countPages' => $countPages,
             'total' => $total
         );
+        */
     }
 
     

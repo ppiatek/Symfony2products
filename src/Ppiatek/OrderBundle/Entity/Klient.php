@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Klient
 {
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="id_klient",type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

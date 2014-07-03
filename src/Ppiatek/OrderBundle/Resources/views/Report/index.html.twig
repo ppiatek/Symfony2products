@@ -3,27 +3,32 @@
 {% block title "Raport" %}
 
 {% block table %}
-  {% if clients %}
+  <div class="count">
+      {{ pagination.getTotalItemCount }}
+  </div>
+  {% if pagination %}
     <table>
       <tr>
-        <th>Imię</th>
-        <th>Nazwisko</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Id', 'id') }}</th>
+        <th{% if pagination.isSorted('imie') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Imię', 'imie') }}</th>
+        <th{% if pagination.isSorted('nazwisko') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Nazwisko', 'nazwisko') }}</th>
       </tr>
-      {% for client in clients %}
-      <tr>
-        <td>{{client.imie}}</td>
-        <td>{{client.nazwisko}}</td>
+      {% for client in pagination %}
+      <tr {% if loop.index is odd %}class="color"{% endif %}>
+        {# dump(client) #}
+        <td>{{ client.getIdKlient() }}</td>
+        <td>{{ client.getImie() }}</td>
+        <td>{{ client.getNazwisko() }}</td>
       </tr>
       {% endfor %}
     </table>
-    {% if countPages > 1 %}
-        <div class="pagination">
-            
-            {% for i in 1..countPages %}
-                <span>{{i}}</span>
-            {% endfor %}
-        </div>
-    {% endif %}
-    
   {% endif %}
+  <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+  <br />
+  {% trans %}Hello %name%{% endtrans %}
+  {% transchoice count %}
+    {0} There are no apples|{1} There is one apple|]1,Inf] There are %count% apples
+{% endtranschoice %}
 {% endblock %}
